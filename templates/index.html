@@ -1,0 +1,89 @@
+<html>
+  <head>
+    <style>
+      table,
+      th,
+      td {
+        border: 1px solid black;
+      }
+      tr:nth-child(odd) {
+        background-color: skyblue;
+      }
+      tr:nth-child(even) {
+        background-color: blue;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="text" id="search" />
+    <table id="raspored">
+      <thead>
+        <tr>
+          <th>Predmet</th>
+          <th>Tip</th>
+          <th>Nastavnik</th>
+          <th>Grupe</th>
+          <th>Dan</th>
+          <th>Termin</th>
+          <th>Vreme</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in raspored %}
+        <tr>
+          <td>{{r[1]}}</td>
+          <td>{{r[2]}}</td>
+          <td>{{r[3]}}</td>
+          <td>{{r[4]}}</td>
+          <td>{{r[5]}}</td>
+          <td>{{r[6]}}</td>
+          <td>{{r[7]}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <table style="float: left">
+      <thead>
+        <tr>
+          <th>Nastavnik</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for n in nastavnici %}
+        <tr>
+          <td><a href="/nastavnik/{{n[0]}}">{{n[0]}}</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <table style="float: left">
+      <thead>
+        <tr>
+          <th>Ucionice</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for u in ucionice %}
+        <tr>
+          <td><a href="/ucionica/{{u[0]}}">{{u[0]}}</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>
+<script
+  src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+  crossorigin="anonymous"
+></script>
+<script>
+  $(document).ready(function () {
+    $("#search").on("keyup", function () {
+      var value = $(this).val().toLowerCase();
+      $("#raspored tbody tr").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+      });
+    });
+  });
+</script>
